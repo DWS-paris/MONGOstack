@@ -1,0 +1,17 @@
+<section id="singleRecipe">
+
+    <h2><%= singleRecipe.title %></h2>
+    <p><%= singleRecipe.description %></p>
+
+    <article>
+        <h3>Liste des ingrédients</h3>
+        <ul>
+            <% for(ingredient of singleRecipe.ingredients) { %>
+                <li><b><%= ingredient.title %> : </b><%= ingredient.content %></li>
+            <% } %>
+        </ul>
+    </article>
+
+    <a class="callToAction" href="/">Retour</a> <a class="callToAction"  href="/edit-recipe/<%= singleRecipe._id %>">Modifier</a>
+
+</section>
