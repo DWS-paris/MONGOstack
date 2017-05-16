@@ -22,8 +22,26 @@ Définir la route GET '/'
 */
     router.get('/', (req, res, next) => {
 
-        // Afficher la page
-        res.render('pages/index')
+        // Connexion à MongoDb
+        MongoClient.connect(mongodbUrl, (err, db) => {
+
+            // Tester la connection
+            if(err) { res.send(err) } 
+            else{
+                // Afficher les documents de la colletion myRecipe
+                db.collection('myRecipe').find().toArray((err, recipes) => {
+                    // Tester la commande MongoDb
+                    if(err){ res.send(err) }
+                    else{ 
+                        // Envoyer les données au format json
+                        res.render('pages/index', {recipeList : recipes})
+                    }
+                })
+            }
+
+            // Fermer la connexion
+            db.close();
+        })
     })
 
 

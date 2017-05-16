@@ -65,6 +65,8 @@ Reset
         font-weight: 500;
         padding: .7rem 1rem;
         border: .1rem solid grey;
+        display: inline-block;
+        margin-top: 1rem;
     }
 
     img{

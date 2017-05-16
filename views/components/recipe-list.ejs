@@ -1,8 +1,28 @@
-<h2>Liste des recettes</h2>
-<p>Cliquez sur une des recettes pour voir le détail.</p>
+<% if(recipeList.length > 0) { %>
 
-<section id="recipeList">
+    <h2>Liste des recettes</h2>
+    <p>Cliquez sur une des recettes pour voir le détail.</p>
 
-    
+    <section id="recipeList">
 
-</section>
+        <% for(recipe of recipeList) { %>
+            <article class="recipeListItem" data-id="<%= recipe._id %>">
+
+                <h3><%= recipe.title %></h3>
+                <p>
+                    <% for(ingredient of recipe.ingredients) { %>
+                        <span><%= ingredient.title %></span>
+                    <% } %>
+                </p>
+            </article>
+        <% } %>
+
+    </section>
+
+<% } else { %>
+
+    <h2>Liste des recettes</h2>
+    <p>Vous n'avez pas encor créé de recette.</p>
+    <a href="/" class="callToAction">Ajouter une recette</a>
+
+<% } %>
