@@ -1,33 +1,30 @@
-/*
-Configurer le serveur
-*/
-    // Importer les composants
+// Configuration du server
     let express = require('express');
+    let path = require('path');
     let bodyParser = require('body-parser');
 
-    // Définir le port
+    let front = require('./routes/front');
+    let api = require('./routes/api');
+
     let port = 8080;
-    
-    // Initier le serveur
     let server = express();
 
-    // Configurer le moteur de template
-    server.set('view engine', 'ejs')
 
-    // Définir les routes et les fichiers à utiliser
-    server.use('/', require('./routes/front'))
-
-    // Définir le dossier static pour les fichiers importés dans les vues
+// Dossier statique de la partie front
     server.use(express.static('public'))
 
-    // Configuration de body-parser
+// Configurer le moteur de template
+    server.set('view engine', 'ejs'); 
+
+// Body Parser
     server.use(bodyParser.json());
-    server.use(bodyParser.urlencoded({ extended: true }));
+    server.use(bodyParser.urlencoded({extended: true}));
 
+// Définition des routes
+    server.use('/', front);
+    server.use('/api', api);
 
-
-
-/*
-Lancer le serveur
-*/
-    server.listen( port, () => console.log('Le serveur est lancé sur le port ' + port) );
+// Lancer le server
+    server.listen(port, () => {
+        console.log('Server started on port ' + port);
+    });

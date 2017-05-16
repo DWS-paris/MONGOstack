@@ -1,0 +1,20 @@
+<% if(ingredientList.length == 0) { %>
+
+     <section id="ingredientList">
+        <p>Vous n'avez pas encore ajouté d'ingredient</p>
+    </section>
+
+<% } else { %>
+
+   <section id="ingredientList">
+        <h3>Liste des ingrédients</h3>
+        <ul>
+            <% for(ingredient of ingredientList) { %>
+
+                <li><%= ingredient.title %></li>
+            
+            <% } %>
+        </ul>
+    </section>
+
+<% } %>

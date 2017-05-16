@@ -314,6 +314,12 @@ Form
         font-weight: 300;
     }
 
+    legend a {
+        font-size: 1rem;
+        font-weight: 900;
+        text-transform: uppercase;
+    }
+
     #toggleForm #addNewsForm {
         padding: 2rem;
         text-align: left;   

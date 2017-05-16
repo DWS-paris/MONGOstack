@@ -1,36 +1,45 @@
 <h2>Ajoutez une recette</h2>
-<p>Remplissezle formulaire suivant et clquez sur 'Ajouter'.</p>
-<section id="addRecipePage">
 
-    <form action="" id="addRecipeForm">
-        <fieldset>
-            <legend>Description de la recette</legend>
-            <label for="recipeTitle">Titre</label>
-            <input type="text" id="recipeTitle">
-            <label for="recipeDesc">Description</label>
-            <textarea id="recipeDesc"></textarea>
-        </fieldset>
+<% if (ingredientList.length == 0) { %>
+    <p>Vous devez ajouter des ingrédients pour créer une recette.</p>
+    <a href="/add-ingredient" class="callToAction">Ajouter un ingrédient</a>
 
-        <fieldset>
-            <legend>Ingrédients de la recette</legend>
+<% } else { %>
 
-            <ul id="fromIngredientList">
-                <% for(ingredient of data) { %>
-                    <li>
-                        <span>
-                            <input type="checkbox" class="checkboxIngredient" value="<%= ingredient.title %>"> 
-                            <%= ingredient.title %>
-                        </span>
-                        <input type="text" data-id="<%= ingredient._id %>">
-                    </li>
-                <% } %>
-            </ul>
-            
-        </fieldset>
+    <p>Remplissezle formulaire suivant et clquez sur 'Ajouter'.</p>
+    <section id="addRecipePage">
 
-        <input type="submit" value="Ajouter">
-    </form>
-    
-</section>
+        <form action="" id="addRecipeForm">
+            <fieldset>
+                <legend>Description de la recette</legend>
+                <label for="recipeTitle">Titre</label>
+                <input type="text" id="recipeTitle">
+                <label for="recipeDesc">Description</label>
+                <textarea id="recipeDesc"></textarea>
+            </fieldset>
+
+            <fieldset>
+                <legend>Ingrédients de la recette <a href="/add-ingredient">Ajouter un ingrédient</a></legend>
+
+                <ul id="fromIngredientList">
+                    <% for(ingredient of ingredientList) { %>
+                        <li>
+                            <span>
+                                <input type="checkbox" class="checkboxIngredient" value="<%= ingredient.title %>"> 
+                                <%= ingredient.title %>
+                            </span>
+                            <input type="text" data-id="<%= ingredient._id %>">
+                        </li>
+                    <% } %>
+                </ul>
+                
+            </fieldset>
+
+            <input type="submit" value="Ajouter">
+        </form>
+        
+    </section>
+
+<% } %>
 
 <script src="/js/recipe-add-form.js"></script>
