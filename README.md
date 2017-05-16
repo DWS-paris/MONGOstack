@@ -12,8 +12,6 @@ Projet réalisé dans le cadre de la mise en place d'un projet de formation à l
 
 <br /><br />
 
-<br /><br />
-
 ## Installation/Configuration
 
 Cloner ce repo puis créer un dossier `data` pour héberger la base de données MongoDb.
