@@ -9,10 +9,20 @@ Configurer le serveur
     let port = 8080;
     
     // Initier le serveur
-    let app = express();
+    let server = express();
 
     // Configurer le moteur de template
-    app.set('view engine', 'ejs')
+    server.set('view engine', 'ejs')
+
+    // Définir les routes et les fichiers à utiliser
+    server.use('/', require('./routes/front'))
+
+    // Définir le dossier static pour les fichiers importés dans les vues
+    server.use(express.static('public'))
+
+    // Configuration de body-parser
+    server.use(bodyParser.json());
+    server.use(bodyParser.urlencoded({ extended: true }));
 
 
 
@@ -20,4 +30,4 @@ Configurer le serveur
 /*
 Lancer le serveur
 */
-    app.listen( port, () => console.log('Le serveur est lancé sur le port ' + port) );
+    server.listen( port, () => console.log('Le serveur est lancé sur le port ' + port) );
