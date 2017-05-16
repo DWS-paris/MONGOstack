@@ -44,7 +44,7 @@ Reset
         font-weight: 300;
     }
 
-    a, .fa{
+    a, .fa, .callToAction{
         color: grey;
         text-decoration: none;
         cursor: pointer;
@@ -67,7 +67,17 @@ Reset
         border: .1rem solid grey;
         display: inline-block;
         margin-top: 1rem;
+        background: white;
     }
+
+    .callToAction:hover{
+        color: black;
+    }
+
+    button.callToAction{
+        margin-bottom: 2rem;
+    }
+
 
     img{
         max-width: 100%;

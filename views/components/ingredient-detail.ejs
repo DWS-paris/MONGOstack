@@ -1,1 +1,30 @@
-<%= singleIngredient.title %>
+
+
+<p>Titre de l'ingrédient</p>
+<h2><%= singleIngredient.title %></h2>
+<a class="callToAction" href="/add-ingredient">Retour</a>
+<button class="callToAction" data-id="<%= singleIngredient._id %>">Supprimer</button>
+
+<section id="recipeList">
+    <h3>Liste des recettes pour : <%= singleIngredient.title %></h3>
+    
+
+    <% if(recipeList.length == 0) { %>
+        <p>Aucune recette trouvée...</p>
+
+    <% } else { %>
+
+        <% for(recipe of recipeList) { %>
+            <article class="recipeListItem" data-id="<%= recipe._id %>">
+
+                <h3><%= recipe.title %></h3>
+                
+            </article>
+        <% } %>
+
+    <% } %>
+
+</section>
+
+
+<script src="/js/ingredient-detail.js"></script>

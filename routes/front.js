@@ -189,22 +189,31 @@ Définir la routes GET '/ingredients'
         MongoClient.connect(mongodbUrl, (err, db) => {
 
             // Tester la connection
-            if(err) { res.send(err) } 
+            if(err) { res.send(err); db.close(); } 
             else{
-                // Afficher les documents de la colletion ingredients
+
+                // Afficher les documents de la colletion myRecipe
                 db.collection('ingredients').findOne({ _id: new ObjectId(req.params.id) }, (err, ingredient) => {
                     // Tester la commande MongoDb
                     if(err){ res.send(err) }
                     else{ 
-                        // Envoyer les données au format json
-                        res.render('pages/edit-ingredient', {singleIngredient : ingredient})
-                    }
-                })
 
+                        // Afficher les documents de la colletion ingredients
+                        db.collection('myRecipe').find({"ingredients.title": ingredient.title}, {"title":1}).toArray((err, recipes) => {
+                            // Tester la commande MongoDb
+                            if(err){ res.send(err) }
+                            else{ 
+                                res.render('pages/edit-ingredient', {singleIngredient: ingredient, recipeList : recipes})
+                            }
+                        })
+                    }
+
+                    // Fermer la connexion
+                    db.close();
+                })
             }
             
-            // Fermer la connexion
-            db.close();
+            
         })
     })
 

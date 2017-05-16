@@ -20,9 +20,31 @@ Définir la route POST '/api/ingredients'
 */
     router.post('/ingredients', (req, res, next) => {
 
-        // Récupérer les données de la requête
-        let newIngredient = req.body;
-        console.log(req.body)
+        // Connexion à MongoDb
+        MongoClient.connect(mongodbUrl, (err, db) => {
+
+            // Tester la connection
+            if(err) { res.send(err) }
+            else{
+                // Ajouter un document dans la colletion ingredients
+                db.collection('ingredients').insert(req.body, (err, data) => {
+                    // Vérification de a commande MongoDb
+                    if(err){  res.send(err) } 
+                    else{ res.send(data) }
+                })
+            }
+
+            // Fermer la connexion
+            db.close();
+        })    
+    })
+
+
+/*
+Définir la route DELETE '/api/ingredients' 
+=> Ajouter un ingrédient
+*/
+    router.delete('/ingredients', (req, res, next) => {
 
         // Connexion à MongoDb
         MongoClient.connect(mongodbUrl, (err, db) => {
@@ -31,13 +53,10 @@ Définir la route POST '/api/ingredients'
             if(err) { res.send(err) }
             else{
                 // Ajouter un document dans la colletion ingredients
-                db.collection('ingredients').insert(newIngredient, (err, data) => {
+                db.collection('ingredients').remove({ _id: new ObjectId(req.body.id) }, (err, data) => {
                     // Vérification de a commande MongoDb
                     if(err){  res.send(err) } 
-                    else{
-                        // Envoyer dans la vue un message de validation
-                        res.send(true)
-                    }
+                    else{ res.send(data) }
                 })
             }
 
@@ -54,9 +73,6 @@ Définir la route POST '/api/recipe'
 */
     router.post('/recipe', (req, res, next) => {
 
-        // Récupérer les données de la requête
-        let newRecipe = req.body;
-
         // Connexion à MongoDb
         MongoClient.connect(mongodbUrl, (err, db) => {
 
@@ -64,13 +80,10 @@ Définir la route POST '/api/recipe'
             if(err) { res.send(err) } 
             else{
                 // Ajouter un document dans la colletion myRecipe
-                db.collection('myRecipe').insert(newRecipe, (err, data) => {
+                db.collection('myRecipe').insert(req.body, (err, data) => {
                     // Vérification de a commande MongoDb
                     if(err){  res.send(err) } 
-                    else{
-                        // Envoyer dans la vue un message de validation
-                        res.send(true)                    
-                    }
+                    else{ res.send(data) }
                 })
             }
 
@@ -89,7 +102,7 @@ Définir la route POST '/api/recipe'
     router.put('/update-recipe/:id', (req, res, next) => {
 
         // Récupérer les données de la requête
-        let edited = req.body;
+        let editedRecipe = req.body;
 
         // Connexion à MongoDb
         MongoClient.connect(mongodbUrl, (err, db) => {
@@ -97,21 +110,15 @@ Définir la route POST '/api/recipe'
             // Tester la connection
             if(err) { res.send(err) } 
             else{
-
-                db.collection('myRecipe').update({ _id: new ObjectId(req.params.id) }, edited, (err, data) => {
+                db.collection('myRecipe').update({ _id: new ObjectId(req.params.id) }, editedRecipe, (err, data) => {
                     if(err){  res.send(err) } 
-                    else{
-                        res.send(true)                    
-                    }
+                    else{ res.send(data) }
                 })
-
             }
 
             // Fermer la connexion
             db.close()
-        }) 
-
-       
+        })
     })
 
 
