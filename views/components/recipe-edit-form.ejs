@@ -1,0 +1,55 @@
+<h2>Modifier la recette</h2>
+<p>Editez formulaire suivant et clquez sur 'Modifier'.</p>
+<section id="addRecipePage">
+
+    <form action="" id="editRecipe">
+        <fieldset>
+            <input type="hidden" value="<%= singleRecipe._id %>">
+            <legend>Description de la recette</legend>
+            <label for="recipeTitle">Titre</label>
+            <input type="text" id="recipeTitle" value="<%= singleRecipe.title %>">
+            <label for="recipeDesc">Description</label>
+            <textarea id="recipeDesc"><%= singleRecipe.description %></textarea>
+        </fieldset>
+
+        <fieldset>
+            <legend>Ingédients de la recette</legend>
+
+            <ul id="fromIngredientListInRecipe">
+                <% for(ingredient of singleRecipe.ingredients) { %>
+                    <li>
+                        <span>
+                            <input type="checkbox" class="checkboxIngredient" value="<%= ingredient.title %>" checked> 
+                            <%= ingredient.title %>
+                        </span>
+                        <input type="text" data-id="<%= ingredient._id %>" value="<%= ingredient.content %>">
+                    </li>
+                <% } %>
+            </ul>
+            
+        </fieldset>
+
+        <fieldset>
+            <legend>Ajouter des ingédients</legend>
+
+            <ul id="fromIngredientList">
+                <% for(ingredient of ingredientsList) { %>
+                    <li>
+                        <span>
+                            <input type="checkbox" class="checkboxIngredient" value="<%= ingredient.title %>"> 
+                            <%= ingredient.title %>
+                        </span>
+                        <input type="text" data-id="<%= ingredient._id %>">
+                    </li>
+                <% } %>
+            </ul>
+            
+        </fieldset>
+
+        <input type="submit" value="Ajouter">
+    </form>
+    
+</section>
+
+<script src="/js/recipe-edit-form.js"></script>
+
