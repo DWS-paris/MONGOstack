@@ -83,7 +83,7 @@ $(document).ready(function(){
                 dataType: 'JSON',
                 data: editedRecipe,
 
-                success: (data) => window.location = 'http://localhost:8080/',
+                success: (data) => window.location = 'http://localhost:8080/edit-recipe/' + idRecipe,
                 error: (err) => console.log(err)
             })        
         })

@@ -53,7 +53,7 @@ $(document).ready(function(){
                 dataType: 'JSON',
                 data: newRecipe,
 
-                success: (data) => console.log(data),
+                success: (data) => window.location = 'http://localhost:8080',
                 error: (err) => console.log(err)
             })        
         })

@@ -76,36 +76,6 @@ Définir la route GET '/add-recipe'
     })
 
 
-/* 
-Définir la routes GET '/ingredients'
-=> Afficher la page pour ajouter un ingrédient 
-*/
-    router.get('/add-ingredient', (req, res, next) => {
-
-        // Connexion à MongoDb
-        MongoClient.connect(mongodbUrl, (err, db) => {
-
-            // Tester la connection
-            if(err) { res.send(err) } 
-            else{
-                // Afficher les documents de la colletion ingredients
-                db.collection('ingredients').find().toArray((err, ingredients) => {
-                    // Tester la commande MongoDb
-                    if(err){ res.send(err) }
-                    else{ 
-                        // Envoyer les données au format json
-                        res.render('pages/add-ingredients', {ingredientList : ingredients})
-                    }
-                })
-
-            }
-            
-            // Fermer la connexion
-            db.close();
-        })
-    })
-
-
 
 
 /* 
@@ -175,6 +145,71 @@ Définir la routes GET '/recipe/:id'
         })
     })
 
+
+
+/* 
+Définir la routes GET '/ingredients'
+=> Afficher la page pour ajouter un ingrédient 
+*/
+    router.get('/add-ingredient', (req, res, next) => {
+
+        // Connexion à MongoDb
+        MongoClient.connect(mongodbUrl, (err, db) => {
+
+            // Tester la connection
+            if(err) { res.send(err) } 
+            else{
+                // Afficher les documents de la colletion ingredients
+                db.collection('ingredients').find().toArray((err, ingredients) => {
+                    // Tester la commande MongoDb
+                    if(err){ res.send(err) }
+                    else{ 
+                        // Envoyer les données au format json
+                        res.render('pages/add-ingredients', {ingredientList : ingredients})
+                    }
+                })
+
+            }
+            
+            // Fermer la connexion
+            db.close();
+        })
+    })
+
+
+
+
+/* 
+Définir la routes GET '/ingredients'
+=> Afficher la page pour ajouter un ingrédient 
+*/
+    router.get('/edit-ingredient/:id', (req, res, next) => {
+
+        // Connexion à MongoDb
+        MongoClient.connect(mongodbUrl, (err, db) => {
+
+            // Tester la connection
+            if(err) { res.send(err) } 
+            else{
+                // Afficher les documents de la colletion ingredients
+                db.collection('ingredients').findOne({ _id: new ObjectId(req.params.id) }, (err, ingredient) => {
+                    // Tester la commande MongoDb
+                    if(err){ res.send(err) }
+                    else{ 
+                        // Envoyer les données au format json
+                        res.render('pages/edit-ingredient', {singleIngredient : ingredient})
+                    }
+                })
+
+            }
+            
+            // Fermer la connexion
+            db.close();
+        })
+    })
+
+
+    
 
 /*
 Exporter le module des routes

@@ -11,7 +11,7 @@
         <ul>
             <% for(ingredient of ingredientList) { %>
 
-                <li><%= ingredient.title %></li>
+                <li><a href="edit-ingredient/<%= ingredient._id %>"><%= ingredient.title %></a></li>
             
             <% } %>
         </ul>
